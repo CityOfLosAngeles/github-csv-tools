@@ -28,11 +28,29 @@ Instructions for exporting or importing:
 
 ### To Import Issues
 
-Currently imports title, body, labels, status (closed or open) and milestones.
+Currently imports title, body, labels, assignees, status (closed or open) and milestones.
 
 ```
 githubCsvTools myFile.csv
 ```
+
+Assignees must be associated with the repository with the proper permissions.
+
+### To Import Pull Requests
+
+Currently imports title, body, labels, milestones, assignees, state (closed or open), head and base.
+
+```
+githubCsvTools -p myFile.csv
+```
+
+`head` and `base` values are required for every pull request. The values of the `head` branch and the `base` branch must already exist
+on the repository. In addition, the pair of a `head` and `base` branch must be unique among other pull requests listed in the csv file
+or you will receive an error that a particuluar pull request between two branches already exists.
+
+Milestones must already exists on the repository and must be imported via it's number. You may find a list of milestones' numbers by using the [GitHub API](https://docs.github.com/en/rest/reference/issues#milestones).
+
+Assignees must be associated with the repository with the proper permissions.
 
 ### To Export Issues
 
