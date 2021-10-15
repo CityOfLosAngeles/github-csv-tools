@@ -1,7 +1,7 @@
 const csv = require("csv");
 const fs = require("fs");
 
-const { createIssue } = require("./helpers.js");
+const { createIssue, createPullRequest } = require("./helpers.js");
 
 const importFile = (octokit, file, values) => {
   fs.readFile(file, "utf8", (err, data) => {
@@ -63,6 +63,35 @@ const importFile = (octokit, file, values) => {
           if (stateIndex > -1 && row[stateIndex] === "closed") {
             state = row[stateIndex];
           }
+
+          // if we are importing pull requests
+          if(values.importPullRequests) {
+            
+            var headIndex = cols.indexOf("head");
+            var baseIndex = cols.indexOf("base");
+
+            if(headIndex === -1 || baseIndex === -1) {
+              console.error("'head and 'base' is required while importing pull requests, but not found in CSV.");
+              process.exit(1);
+            }
+
+            if(headIndex > -1 && row[headIndex] === "") {
+              console.log(row[headIndex]);
+              console.error("'head value is required for every single row while importing pull requests, but found empty value(s) for the 'head' column of the CSV file.");
+              process.exit(1);
+            }
+
+            if(baseIndex > -1 && row[baseIndex] === "") {
+              console.log(row[baseIndex]);
+              console.error("'base value is required for every single row while importing pull requests, but found empty value(s) for the 'base' column of the CSV file.");
+              process.exit(1);
+            }
+
+            sendObj.head = row[headIndex];
+            sendObj.base = row[baseIndex];
+            return createPullRequest(octokit, sendObj, state);
+          }
+
           return createIssue(octokit, sendObj, state);
         });
 
@@ -76,7 +105,7 @@ const importFile = (octokit, file, values) => {
             });
 
             console.log(
-              `Created ${successes.length} issues, and had ${fails.length} failures.`
+              `Created ${successes.length} issues / pull requests, and had ${fails.length} failures.`
             );
             console.log(
               "❤ ❗ If this project has provided you value, please ⭐ star the repo to show your support: ➡ https://github.com/gavinr/github-csv-tools"

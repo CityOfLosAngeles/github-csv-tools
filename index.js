@@ -36,6 +36,7 @@ program
   )
   .option("-c, --exportComments", "Include comments in the export.")
   .option("-e, --exportAll", "Include all data in the export.")
+  .option("-p, --importPullRequests", "Import Pull Requests.")
   .option("-v, --verbose", "Include additional logging information.")
   .action(function (file, options) {
     co(function* () {
@@ -57,6 +58,7 @@ program
       }
       retObject.exportComments = options.exportComments || false;
       retObject.exportAll = options.exportAll || false;
+      retObject.importPullRequests = options.importPullRequests || false;
       retObject.verbose = options.verbose || false;
 
       retObject.userOrOrganization = options.organization || "";
