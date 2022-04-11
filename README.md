@@ -1,5 +1,7 @@
-<h1 align="center" style="border-bottom: none;">GitHub CSV Tools</h1>
+<div align="center"><img src="https://github.com/gavinr/github-csv-tools/blob/master/banner.png?raw=true" alt="GitHub CSV Tools banner" title="GitHub CSV Tools" />
 <h3 align="center">Import and export GitHub issues via CSV</h3>
+</div>
+
 <p align="center">
   
   <a href="https://github.com/gavinr/github-csv-tools/actions?query=workflow%3ATest+branch%3Amaster">
@@ -82,10 +84,10 @@ For all actions, the tool will ask you to input a GitHub token. To obtain this t
 | Option                  | Notes                                                                         |
 | ----------------------- | ------------------------------------------------------------------------------|
 | -V, --version           | Output the version number                                                     |
-| -g, --github_enterprise | Your GitHub Enterprise URL. https://your-internal-githubenterprise.com/api/v3 |
+| -g, --github_enterprise | Your GitHub Enterprise URL. https://your-internal-githubenterprise.com/api/v3  <br />(Reminder: do not forget the  `/api/v3` at the end)|
 | -t, --token             | The GitHub token. https://github.com/settings/tokens                          |
-| -o, --organization      | The User or Organization slug that the repo lives under.                      |
-| -r, --repository        | The repository name (slug).                                                   |
+| -o, --organization      | The User or Organization slug that the repo lives under. <br />Example: For `/myOrg/my-repo`, this value would be **myOrg**.                    |
+| -r, --repository        | The repository name (slug).<br />Example: For `/myOrg/my-repo`, this value would be **my-repo**.                                                 |
 | -v, --verbose           | Include additional logging information.                                       |
 | -h, --help              | See all the options and help.                                                 |
 
